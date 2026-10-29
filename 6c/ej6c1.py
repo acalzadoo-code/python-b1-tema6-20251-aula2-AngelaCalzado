@@ -31,38 +31,6 @@ Ejemplo:
     Salida:
         "Negative"
 
-Enunciat:
-Utilitzant la llibreria NLTK, implementa una funció 'sentiment_analysis(text)'
-que rep com a paràmetre 'text' que és una cadena de strings, la mateixa que
-ha de ser analitzada per saber si aquesta frase representa una emoció negativa o
-positiva.
-
-S'ha d'utilitzar 'SentimentIntensityAnalyzer' que és importada des de
-'nltk.sentiment', d'aquesta manera obtindrem una puntuació sobre la base del número
-de paraules que s'estiguin associant a alguna cosa positiva o negativa dins la frase
-analitzada.
-
-Utilitzarem el mòdul nltk.sentiment.vader per a analitzar el sentiment d'un text.
-Et recmendamos que revisis la documentació:
-https://www.nltk.org/api/nltk.sentiment.vader.html
-
-En concret, revisa la funció polarity_scores(text)
-
-Si la puntuació és més gran de 0.05 es retorna un resultat positiu, si és menor
-a -0.05 es retorna un resultat negatiu i si es troba entre els valors
--0.05 i 0.05 inclusives, es retorna un resultat neutre.
-
-Paràmetre:
-text: Cadena de strings.
-
-Exemple:
-     Entrada:
-         "I love going to the beach on a sunny day, but I hate getting
-         sunburned."
-
-     Sortida:
-         "Negative"
-
 """
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
@@ -70,12 +38,26 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 nltk.download("vader_lexicon")
 
 def sentiment_analysis(text):
-    #Write your code here
-    pass
+    # Creamos un analizador de sentimientos utilizando NLTK
+    analizador = SentimentIntensityAnalyzer()
+    
+    # Analizamos el texto y obtenemos un diccionario con las puntuaciones
+    # de sentimiento negativo (neg), neutro (neu), positivo (pos)
+    # y una puntuación global (compound)
+    score_dict = analizador.polarity_scores(text)
+    
+    # Extraemos la puntuación global, que va de -1 (negativo)
+    # a +1 (positivo), y la guardamos en una variable
+    score = score_dict["compound"]
+    
+    if score > 0.05:
+        return "Positive"
+    elif score < -0.05:
+        return "Negative"
+    else:
+        return "Neutral"
 
 
 # Si quieres probar tu código, descomenta las siguientes líneas y ejecuta el script
-# Si vols provar el teu codi, descomenta les línies següents i executa l'script
-
-# text = "This product is okay."
-# print(sentiment_analysis(text))
+#text = "I love going to the beach on a sunny day, but I hate getting sunburned."
+#print(sentiment_analysis(text))

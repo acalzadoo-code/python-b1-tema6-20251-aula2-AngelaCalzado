@@ -28,48 +28,30 @@ Ejemplo:
 
 Nota: Verificar que el archivo de logs se haya creado.
 
-
-Enunciat:
-Implementa dues funcions: 'count_letters(names)' i 'create_log(names)'.
-En primer lloc, utilitzant la llibreria logging, implementa una funció 
-'count_letters(names)' que rep com a paràmetre 'names' que és una llista de 
-strings amb noms. La funció ha de comptar quantes vegades apareix cada lletra 
-en tots els noms de la llista. La funció ha de retornar un diccionari amb 
-la freqüència de cada lletra.
-
-En segon lloc, la funció 'create_log(names)' rep també una llista
-de strings amb noms, crida a la funció 'count_letters(names)' i emmagatzema
-el diccionari generat en l'arxiu 'production.log' en format de 
-registre de nivell DEBUG.
-
-Un cop es tingui el diccionari de la funció 'count_letters(names)', has de
-guardar-ho amb el codi següent:
-logging.info(f'Letter counts: {letter_counts}')
-
-Paràmetre:
-     names: llista de strings.
-
-Exemple:
-     Entrada:
-         ["Juan", "Pedro", "Marta"]
-     Sortida:
-        Existeix un fitxer "production.log" que conté:
-        DEBUG:root:Letter counts: {'J': 1, 'u': 1, 'a': 3, 'n': 1, 'P': 1, 'e': 1, 'd': 1, 'r': 2, 'o': 1, 'M': 1, 't': 1}
-
-Nota: Verifiqueu que el fitxer de logs s'hagi creat.
 """
 import logging
 
 def count_letters(names):
-    #Write your code here
-    pass
+    letter_count = {}
+    for name in names:
+        for letter in name:
+            if letter not in letter_count:
+                letter_count[letter] = 1
+            else:
+                letter_count[letter] += 1
+    return letter_count
+
+
+logging.basicConfig(
+        level=logging.INFO,
+        filename='production.log'
+    )
 
 
 def create_log(names):
-    #Write your code here
-    pass
+    letter_counts = count_letters(names)
+    logging.info(f'Letter counts: {letter_counts}')
 
 
 # Si quieres probar tu código, descomenta las siguientes líneas y ejecuta el script
-# Si vols provar el teu codi, descomenta les línies següents i executa l'script
-# create_log(["Juan", "Pedro", "Marta"])
+create_log(["Juan", "Pedro", "Marta"])

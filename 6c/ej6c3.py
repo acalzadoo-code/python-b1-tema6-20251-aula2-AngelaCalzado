@@ -41,69 +41,25 @@ Ejemplo:
         'rating_count', 'product_id', 'crawl_month', 'amount'],
         dtype='object')
 
-
-Enunciat:
-Implementa un codi capaç de llegir arxius 'parquet' per després calcular
-la columna 'amount' del DataFrame resultant. En aquest cas, el fitxer
-parquet té les vendes d´una botiga d´un mes.
-
-Per això es creen dues funcions.
-
-La primera anomenada 'read_parquet_file(path)' que rep com a paràmetre
-'path' i retorna el DataFrame que es troba a la ruta en format
-parquet.
-
-La segona funció anomenada 'calculate_amount_quantity(dataframe)' que
-rep com a paràmetre un DataFrame i calcula la columna 'amount' com el
-producte de la columna 'price' i la columna 'units_sold'. La funció retorna
-el DataFrame amb la nova columna calculada.
-
-Cal llegir el fitxer parquet que es troba a la ruta:
-"files/sales_products_2020_08.parquet".
-
-
-Funció 'read_parquet_file(path)'
-     Paràmetres:
-         path (string): Representa la ruta al fitxer parquet.
-     Retorna:
-         pd.DataFrame: Contingut del fitxer parquet.
-
-Funció 'calculate_amount_quantity(dataframe)'
-     Paràmetres:
-         dataframe (pd.DataFrame): Representa el DataFrame a processar.
-     Retorna:
-         pd.DataFrame: DataFrame amb la nova columna 'amount' calculada.
-
-Exemple:
-     Entrada:
-         df = read_parquet_file(path)
-         df_result = calculate_amount_quantity(df)
-         print(df_result.columns)
-     Sortida:
-         Index(['title', 'price', 'retail_price', 'units_sold', 'rating',
-         'rating_count', 'product_id', 'crawl_month', 'amount'],
-         dtype='object')
-
 """
 import pandas as pd
+import pyarrow
 
 
 def read_parquet_file(path: str) -> pd.DataFrame:
-    #Write your code here
-    pass
+    return pd.read_parquet(path)
 
 
 def calculate_amount_quanity(dataframe: pd.DataFrame):
-    #Write your code here
-    pass
+    df = pd.DataFrame(dataframe)
+    df['amount'] = df['price'] * df['units_sold']
+    return df
 
 
 # Si quieres probar tu código, descomenta las siguientes líneas y ejecuta el script
-# Si vols provar el teu codi, descomenta les línies següents i executa l'script
-
-# df_sales = read_parquet_file("files/sales_products_2020_08.parquet")
-# print(df_sales.columns)
+#df_sales = read_parquet_file("6c/files/sales_products_2020_08.parquet")
+#print(df_sales.columns)
 #
-# df_sales = calculate_amount_quanity(df_sales)
-# print(df_sales.columns)
-# print(df_sales[["price", "units_sold", "amount"]].head())
+#df_sales = calculate_amount_quanity(df_sales)
+#print(df_sales.columns)
+#print(df_sales[["price", "units_sold", "amount"]].head())

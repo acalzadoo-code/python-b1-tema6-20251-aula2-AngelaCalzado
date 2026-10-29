@@ -35,62 +35,26 @@ Ejemplo:
     Salida:
         4
 
-Enunciat:
-
-Implementa un codi capaç de llegir arxius 'txt' per després comptar quantes
-vegades es repeteix la paraula al text. Per això es creen dues funcions.
-
-La primera anomenada 'read_txt_file(path)' que rep com a paràmetre
-'path' i retorna el text del fitxer que es troba a la ruta. El fitxer
-de text s'ha de llegir amb descodificació “utf-8”. Com segueix:
-'open(path, "r", encoding="utf-8")'.
-
-La segona funció anomenada 'words_counter(text, word)' que rep com
-paràmetres 'text' i 'word' i retornarà el nombre de paraules trobades a
-el text.
-
-Cal llegir el fitxer que es troba a la ruta:
-'files/ej6c2_data_engineer.txt'.
-
-Funció 'read_txt_file(path)'
-     Paràmetres:
-         path (string): Representa la ruta al fitxer.
-     Retorna:
-         str: Contingut del fitxer tipus text.
-
-Funció 'words_counter(text, word)'
-     Paràmetres:
-         text (string): Representa el text a processar.
-         word (string): Representa la paraula a cercar al text.
-     Retorna:
-         int: Nombre d'ocurrències de la paraula al text.
-
-Exemple:
-     Entrada:
-         text = read_txt_file(path)
-         print(words_counter(text, "data"))
-     Sortida:
-         4
-
 """
 
 
 def read_txt_file(path: str) -> str:
-    #Write your code here
-    pass
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
 
 
 def words_counter(text: str, word: str) -> int:
-    #Write your code here
-    pass
+    text = text.lower()
+    word = word.lower()
+    return text.count(word)
+        
 
 
 # Si quieres probar tu código, descomenta las siguientes líneas y ejecuta el script
-# Si vols provar el teu codi, descomenta les línies següents i executa l'script
-# path = "files/ej6c2_data_engineer.txt"
-# text = read_txt_file(path)
-# print(text[-25:])
+path = "6c/files/ej6c2_data_engineer.txt"
+text = read_txt_file(path)
+print(text[-25:])
 
-# word = "data"
-# count = words_counter(text, word)
-# print(f"The word '{word}' appears {count} times in the text.")
+word = "data"
+count = words_counter(text, word)
+print(f"The word '{word}' appears {count} times in the text.")
